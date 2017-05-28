@@ -1,4 +1,4 @@
-from matplotlib.pyplot import *
+import matplotlib.pyplot as plt
 import numpy as np
 
 yp=np.array([139620, 173706, 311622])
@@ -20,7 +20,7 @@ def polinear(M):
             matx[i][k] = pow(M[i],M.shape[0]-(k+1))
     return matx
 
-def f(t, h, x):
+def f(t:int, h, x):
     total = 0
 
     for i in range(0, x):
@@ -45,25 +45,68 @@ def lagrange(z, x, y):
         L = L + y[i] * (num/den)
     return L
 
+xnp = np.array([ 0.0, 0.2, 0.3, 0.5,  0.6])
+ynp = np.array([1.008, 1.064, 1.125, 1.343, 1.512])
+
+def newtonPoli(x, y):
+    i = x.shape[0]
+    m = np.zeros(shape=(i,i))
+
+    m[0:i, 0] = y[:]
+
+    for a in range(1, i):
+        for b in range(0, i-a):
+            m[b,a] = round(m[b+1,a-1]-m[b, a-1], 8)/round(x[b+a]-x[b], 8)
+    return m
+
+def returnPol(x, xp, yp):
+    m = newtonPoli(xp, yp)
+    result = yp[0]
+    for i in range(1, yp.shape[0]):
+        internal = m[0, i]
+        mult:float = 1
+        for j in range(0, i):
+            mult = mult * (x-xp[j])
+        internal = internal *mult
+        result = result + internal
+    return result
+
+def PolinomioNewton(size, xnp, ynp):
+    t = np.linspace(0, size, size)
+    y = np.zeros(len(t))
+
+    for i in range(len(t)):
+        #y[i] = interpol(t[i], xp, yp)
+        y[i] = returnPol(t[i], xnp, ynp)
+    plt.plot(t, y)
+    plt.show()
+
+def showInterpol(xp, yp):
+    t = np.linspace(0, 200, 200)
+    y = np.zeros(len(t))
+
+    for i in range(len(t)):
+        y[i] = interpol(t[i], xp, yp)
+    plt.plot(t, y)
+    plt.show()
+
+PolinomioNewton(200, xnp, ynp)
+showInterpol(xnp, ynp)
+
 print(interpol(1958, xp, yp))
 print(lagrange(1958, xp, yp))
+print(returnPol(1958, xp, yp))
 print(interpol(1988, xpo, ypo))
 print(lagrange(1988, xpo, ypo))
+print(returnPol(1988, xpo, ypo))
 
 print("")
 
 print(interpol(1958, xpq, ypq))
 print(lagrange(1958, xpq, ypq))
+print(returnPol(1958, xpq, ypq))
 print(interpol(1988, xpoq, ypoq))
 print(lagrange(1988, xpoq, ypoq))
+print(returnPol(1988, xpoq, ypoq))
 
-
-t = np.linspace(1950, 1970, 2000)
-y = np.zeros(len(t))
-
-for i in range(len(t)):
-    y[i] = interpol(t[i], xp, yp)
-plot(t, y)
-
-
-show()
+print()
