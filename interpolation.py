@@ -21,7 +21,7 @@ xpoq=np.array([1970, 1980, 1990, 2000])
 xnp = np.array([0.0, 0.2, 0.4, 0.6, 0.8])
 ynp = np.array([1.008, 1.064, 1.125, 1.343, 1.512])
 
-#Parent Method
+#Parent Class
 class InterpolationMethod():
     Xint, Yint = None, None
     time = 0
