@@ -290,7 +290,6 @@ setRange(polinear, lagrange, newton, GregNewton, x4, y4, 1, 4)
 
 print("L3(0.15)")
 questao(0.15)
-print(function4(0.15))
 print("erro absoluto")
 print(abs(lagrange.returnValue(0.15)-function4(0.15)))
 print("erro relativo")
