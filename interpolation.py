@@ -53,7 +53,6 @@ class Polinear(InterpolationMethod):
 
     def pow(self, a:int, b):
         result = 1
-        result = np.int64(result)
         for i in range(0, b):
             result = result * a
         return result
@@ -183,24 +182,24 @@ GregNewton = GregNewtonPolynomial(questao1X,questao1Y)
 
 def questao(value):
     polinear.returnValue(value)
-    start_time = time.time()
+    start_time = time.clock()
     resultP = polinear.returnValue(value)
-    elapsed_time = time.time() - start_time
+    elapsed_time = time.clock() - start_time
 
     lagrange.returnValue(value)
-    start_timeL = time.time()
+    start_timeL = time.clock()
     resultL = lagrange.returnValue(value)
-    elapsed_timeL = time.time() - start_timeL
+    elapsed_timeL = time.clock() - start_timeL
 
     newton.returnValue(value)
-    start_timeN = time.time()
+    start_timeN = time.clock()
     resultN = newton.returnValue(value)
-    elapsed_timeN = time.time() - start_timeN
+    elapsed_timeN = time.clock() - start_timeN
 
     GregNewton.returnValue(value)
-    start_timeG = time.time()
+    start_timeG = time.clock()
     resultG = GregNewton.returnValue(value)
-    elapsed_timeG = time.time() - start_timeG
+    elapsed_timeG = time.clock() - start_timeG
     print("polinear   "+ str(resultP) + " tempo: "+ str(elapsed_time))
     print("lagrange   "+ str(resultL) + " tempo: "+ str(elapsed_timeL))
     print("newton     "+ str(resultN) + " tempo: "+ str(elapsed_timeN))
@@ -232,6 +231,8 @@ print()
 setRange(polinear, lagrange, newton, GregNewton, x, y, 0, 3)
 print("1958 3 pontos")
 questao(1958)
+
+lagrange.show(1950, 1970, 1000)
 
 setRange(polinear, lagrange, newton, GregNewton, x, y, 2, 5)
 
@@ -294,6 +295,7 @@ print("erro absoluto")
 print(abs(lagrange.returnValue(0.15)-function4(0.15)))
 print("erro relativo")
 print(str(abs(lagrange.returnValue(0.15)-function4(0.15))/function4(0.15)*100)+" %")
+
 
 '''
 polinear.show(0, 0.8, 100)
